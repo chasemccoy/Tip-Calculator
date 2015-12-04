@@ -36,7 +36,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
   @IBOutlet var billField: UITextField!
   
   // UIButton Outlets
-  @IBOutlet var settingsButton: UIButton!
+  @IBOutlet var settingsIcon: UIButton!
   
   // NSLayoutConstraint Outlets
   @IBOutlet var heightConstraint: NSLayoutConstraint! // Constraint for the fieldView
@@ -70,9 +70,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     billField.delegate = self
     
     // Setup the initial strings and such
-    let str = NSAttributedString(string: "Enter Bill Amount", attributes: [NSForegroundColorAttributeName:UIColor.init(white: 1.0, alpha: 0.5)])
-    billField.attributedPlaceholder = str
-        
     tipLabel.text = "$0.00"
     totalLabel.text = "$0.00"
     
@@ -140,11 +137,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
       blueGradientTopLayer.hidden = true
       orangeGradientTopLayer.hidden = false
       
-      self.scrollView.backgroundColor = UIColor(red:0, green:0, blue:0, alpha:0.2)
+      self.scrollView.backgroundColor = UIColor(red:0, green:0, blue:0, alpha:0.1)
       
       billField.textColor = UIColor.blackColor()
       self.setNeedsStatusBarAppearanceUpdate()
       billField.keyboardAppearance = UIKeyboardAppearance.Light
+      
+      let str = NSAttributedString(string: "Enter Bill Amount", attributes: [NSForegroundColorAttributeName:UIColor(red:0, green:0, blue:0, alpha:0.2)])
+      billField.attributedPlaceholder = str
+      
+      settingsIcon.imageView?.image = UIImage.init(named: "darkGear")
     }
     // Night
     else {
@@ -159,12 +161,32 @@ class ViewController: UIViewController, UITextFieldDelegate {
       billField.textColor = UIColor.whiteColor()
       self.setNeedsStatusBarAppearanceUpdate()
       billField.keyboardAppearance = UIKeyboardAppearance.Dark
+      
+      let str = NSAttributedString(string: "Enter Bill Amount", attributes: [NSForegroundColorAttributeName:UIColor.init(white: 1.0, alpha: 0.5)])
+      billField.attributedPlaceholder = str
+      
+      settingsIcon.imageView?.image = UIImage.init(named: "lightGear")
     }
     
     TwoPeopleOutlet.alpha = 0.75
     ThreePeopleOutlet.alpha = 0.68
     FourPeopleOutlet.alpha = 0.58
     FivePeopleOutlet.alpha = 0.50
+  }
+  
+  
+  
+  
+  override func viewDidAppear(animated: Bool) {
+    let defaults = NSUserDefaults.standardUserDefaults()
+    let colorScheme = defaults.integerForKey("colorScheme")
+    
+    if colorScheme == 0 {
+      settingsIcon.imageView?.image = UIImage.init(named: "darkGear")
+    }
+    else {
+      settingsIcon.imageView?.image = UIImage.init(named: "lightGear")
+    }
   }
   
   
@@ -187,7 +209,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     defaults.setObject(lastEdit, forKey: "lastEdit")
     defaults.synchronize()
     
-    let tipPercentages = [0.18, 0.20, 0.22]
+    let tipPercentages = [0.18, 0.20, 0.25]
     let tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
     
     var tip = 0.0
@@ -270,8 +292,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
       return false
     }
     let newLength = currentCharacterCount + string.characters.count - range.length
-    return newLength <= 15
+    return newLength <= 8
   }
+  
+  
+  
   
   func keyboardWillShow(notification: NSNotification) {
     keyboardFrame = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()

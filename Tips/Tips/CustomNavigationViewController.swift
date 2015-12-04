@@ -11,7 +11,14 @@ import UIKit
 class CustomNavigationViewController: UINavigationController {
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
+    if defaults.integerForKey("colorScheme") == 0 {
+      return .Default
+    }
+    else {
+      return .LightContent
+    }
   }
 
 }

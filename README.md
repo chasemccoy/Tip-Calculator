@@ -28,13 +28,15 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/9x3UMkO.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+My biggest challenge when developing this app was learning the details of the Swift language (I primarily use Objective-C), and also understanding the constraints system of Auto Layout.
+
+The most useful thing I learned while making this app is that Auto Layout constraints can have outlets associated with them. This allowed me to animate the changing of a constraint within my app. I also learned a great deal about using UIScrollView with Auto Layout. 
 
 ## License
 
