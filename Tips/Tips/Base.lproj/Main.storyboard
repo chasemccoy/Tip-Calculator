@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -10,7 +10,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Tips" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="Tipster" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6bE-gV-1FO"/>
                         <viewControllerLayoutGuide type="bottom" id="3O1-2t-S7t"/>
@@ -20,37 +20,56 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rxv-oB-0Bt" userLabel="Field View">
-                                <rect key="frame" x="-4" y="0.0" width="328" height="100"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" placeholder="Bill Amount" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="byV-MK-t6a">
-                                        <rect key="frame" x="81" y="17" width="231" height="81"/>
-                                        <animations/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" placeholder="Bill Amount" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="byV-MK-t6a" customClass="SpringTextField" customModule="Tipster" customModuleProvider="target">
+                                        <rect key="frame" x="81" y="17" width="223" height="81"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="81" id="E5u-Jd-OKR"/>
                                         </constraints>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="41"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad" keyboardAppearance="alert"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                <real key="value" value="1.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideLeft"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                <real key="value" value="0.20000000000000001"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="curve" value="linear"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="NvO-oK-cuJ"/>
                                         </connections>
                                     </textField>
-                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IcW-MN-aZR">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IcW-MN-aZR" customClass="SpringButton" customModule="Tipster" customModuleProvider="target">
                                         <rect key="frame" x="16" y="40" width="35" height="35"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="NeE-m1-g01"/>
                                             <constraint firstAttribute="height" constant="35" id="kdV-O1-rZt"/>
                                             <constraint firstAttribute="width" secondItem="IcW-MN-aZR" secondAttribute="height" multiplier="1:1" id="wew-IL-G8C"/>
                                         </constraints>
                                         <state key="normal" image="lightGear"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideRight"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                <real key="value" value="1.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="curve" value="linear"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                <real key="value" value="0.20000000000000001"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="openSettings:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FKN-Zu-wDp"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="byV-MK-t6a" firstAttribute="leading" secondItem="IcW-MN-aZR" secondAttribute="trailing" constant="30" id="9Eu-9v-bhJ"/>
                                     <constraint firstAttribute="height" constant="100" id="AQo-SW-2gu"/>
@@ -68,14 +87,12 @@
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="+" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0BA-FY-vkZ">
                                                 <rect key="frame" x="16" y="23" width="11" height="21"/>
-                                                <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILf-oF-f6K">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILf-oF-f6K" customClass="SpringLabel" customModule="Tipster" customModuleProvider="target">
                                                 <rect key="frame" x="154" y="23" width="150" height="21"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="b8p-DM-OFT"/>
                                                 </constraints>
@@ -85,7 +102,6 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="=" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAH-jJ-P34">
                                                 <rect key="frame" x="16" y="69" width="100" height="41"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="Xwc-3Y-Gni"/>
                                                 </constraints>
@@ -95,7 +111,6 @@
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hYn-wE-2fQ">
                                                 <rect key="frame" x="16" y="131" width="288" height="29"/>
-                                                <animations/>
                                                 <segments>
                                                     <segment title="18%"/>
                                                     <segment title="20%"/>
@@ -106,9 +121,8 @@
                                                     <action selector="onEditingChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="fcc-F2-UbT"/>
                                                 </connections>
                                             </segmentedControl>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="244" text="$100.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwD-qf-3je">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="244" text="$100.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwD-qf-3je" customClass="SpringLabel" customModule="Tipster" customModuleProvider="target">
                                                 <rect key="frame" x="54" y="69" width="250" height="42"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="250" id="nAM-xy-R2Z"/>
                                                 </constraints>
@@ -118,7 +132,6 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 people" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t4s-6c-jEl">
                                                 <rect key="frame" x="16" y="184" width="127" height="32"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="127" id="2a8-NA-Lz1"/>
                                                     <constraint firstAttribute="height" constant="32" id="xXS-Cc-FCY"/>
@@ -126,10 +139,20 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                                 <color key="textColor" white="1" alpha="0.75356755780346818" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideRight"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                        <real key="value" value="1.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                        <real key="value" value="0.20000000000000001"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="curve" value="linear"/>
+                                                </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 people" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jWS-Zb-Rs1">
                                                 <rect key="frame" x="16" y="236" width="127" height="32"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="127" id="6Do-VU-lyk"/>
                                                     <constraint firstAttribute="height" constant="32" id="FHH-fR-nKE"/>
@@ -140,7 +163,6 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4 people" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4BU-QR-5l0">
                                                 <rect key="frame" x="16" y="288" width="127" height="32"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="32" id="I7L-CU-CaV"/>
                                                     <constraint firstAttribute="width" constant="127" id="oDE-yr-HAE"/>
@@ -151,7 +173,6 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 people" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4W3-qU-OGo">
                                                 <rect key="frame" x="16" y="340" width="127" height="32"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="32" id="30g-t6-yjA"/>
                                                     <constraint firstAttribute="width" constant="127" id="bkG-kA-GJq"/>
@@ -160,9 +181,8 @@
                                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$8.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgd-iZ-eC0">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$8.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgd-iZ-eC0" customClass="SpringLabel" customModule="Tipster" customModuleProvider="target">
                                                 <rect key="frame" x="154" y="184" width="150" height="32"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="32" id="Frw-CW-2s8"/>
                                                     <constraint firstAttribute="width" constant="150" id="UBF-Nc-Ka6"/>
@@ -171,20 +191,8 @@
                                                 <color key="textColor" white="1" alpha="0.75356755780346818" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$7.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpS-84-CJn">
-                                                <rect key="frame" x="129" y="236" width="175" height="32"/>
-                                                <animations/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="175" id="bzU-y2-Svv"/>
-                                                    <constraint firstAttribute="height" constant="32" id="ulT-i0-X8f"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                <color key="textColor" white="1" alpha="0.64972453034682076" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$6.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcX-Hc-3kI">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$6.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcX-Hc-3kI" customClass="SpringLabel" customModule="Tipster" customModuleProvider="target">
                                                 <rect key="frame" x="129" y="288" width="175" height="32"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="175" id="HOS-2b-c0E"/>
                                                     <constraint firstAttribute="height" constant="32" id="g87-9s-DwK"/>
@@ -193,9 +201,8 @@
                                                 <color key="textColor" white="1" alpha="0.57774114884393069" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$5.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fY2-PZ-5MA">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$5.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fY2-PZ-5MA" customClass="SpringLabel" customModule="Tipster" customModuleProvider="target">
                                                 <rect key="frame" x="124" y="340" width="180" height="32"/>
-                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="180" id="4Lo-Nv-rdx"/>
                                                     <constraint firstAttribute="height" constant="32" id="gU5-sc-Cm1"/>
@@ -204,8 +211,17 @@
                                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$7.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpS-84-CJn" customClass="SpringLabel" customModule="Tipster" customModuleProvider="target">
+                                                <rect key="frame" x="129" y="236" width="175" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="175" id="bzU-y2-Svv"/>
+                                                    <constraint firstAttribute="height" constant="32" id="ulT-i0-X8f"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <color key="textColor" white="1" alpha="0.64972453034682076" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
-                                        <animations/>
                                         <color key="backgroundColor" red="1" green="0.43529412150000002" blue="0.81176471709999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="hYn-wE-2fQ" secondAttribute="trailing" constant="16" id="3PM-LA-ZMq"/>
@@ -239,7 +255,6 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <animations/>
                                 <constraints>
                                     <constraint firstItem="E1l-Ah-cEY" firstAttribute="top" secondItem="2vf-RP-Vhx" secondAttribute="top" id="HuD-kT-UCF"/>
                                     <constraint firstAttribute="bottom" secondItem="E1l-Ah-cEY" secondAttribute="bottom" id="Khy-JB-d6P"/>
@@ -249,16 +264,15 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="E1l-Ah-cEY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="7cJ-5i-2AP"/>
                             <constraint firstItem="2vf-RP-Vhx" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Aup-dW-6r5"/>
-                            <constraint firstItem="rxv-oB-0Bt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="FL2-Nw-g6l"/>
                             <constraint firstItem="2vf-RP-Vhx" firstAttribute="top" secondItem="rxv-oB-0Bt" secondAttribute="bottom" id="UzI-Ka-6tf"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="rxv-oB-0Bt" secondAttribute="trailing" constant="-20" id="X8z-4B-4QW"/>
                             <constraint firstItem="2vf-RP-Vhx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Xgg-pR-FR5"/>
+                            <constraint firstItem="rxv-oB-0Bt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="a4m-6M-zSt"/>
                             <constraint firstItem="rxv-oB-0Bt" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="bfv-Yq-dkB"/>
+                            <constraint firstItem="rxv-oB-0Bt" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="lJM-p8-mi9"/>
                         </constraints>
                     </view>
                     <connections>
@@ -277,6 +291,7 @@
                         <outlet property="tipLabel" destination="ILf-oF-f6K" id="R6P-pM-jhI"/>
                         <outlet property="totalLabel" destination="NwD-qf-3je" id="Ikd-4G-Vuu"/>
                         <segue destination="YAM-Hq-1fj" kind="modal" identifier="ModalSegue" id="0va-yR-YV3"/>
+                        <segue destination="Pe0-Lg-HIo" kind="modal" identifier="PopUpSegue" animates="NO" id="nPR-gh-QFa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -286,7 +301,7 @@
         <!--Settings-->
         <scene sceneID="DT1-nr-FPf">
             <objects>
-                <viewController id="9RA-1g-uit" customClass="SettingsViewController" customModule="Tips" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9RA-1g-uit" customClass="SettingsViewController" customModule="Tipster" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cpo-4Z-70q"/>
                         <viewControllerLayoutGuide type="bottom" id="Fp0-NA-cyc"/>
@@ -295,9 +310,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Color Scheme" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryd-DH-AP5">
+                                <rect key="frame" x="16" y="158" width="173" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="173" id="wxt-np-AkB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EF0-Ep-qBt">
+                                <rect key="frame" x="16" y="188" width="288" height="29"/>
+                                <segments>
+                                    <segment title="Day"/>
+                                    <segment title="Night"/>
+                                </segments>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="valueChanged:" destination="9RA-1g-uit" eventType="valueChanged" id="HxG-4h-rc0"/>
+                                </connections>
+                            </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="z37-Wa-jOW">
                                 <rect key="frame" x="16" y="108" width="288" height="29"/>
-                                <animations/>
                                 <segments>
                                     <segment title="18%"/>
                                     <segment title="20%"/>
@@ -308,31 +342,8 @@
                                     <action selector="valueChanged:" destination="9RA-1g-uit" eventType="valueChanged" id="KyK-xf-qbI"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Color Scheme" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryd-DH-AP5">
-                                <rect key="frame" x="16" y="158" width="173" height="22"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="173" id="wxt-np-AkB"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EF0-Ep-qBt">
-                                <rect key="frame" x="16" y="188" width="288" height="29"/>
-                                <animations/>
-                                <segments>
-                                    <segment title="Day"/>
-                                    <segment title="Night"/>
-                                </segments>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="valueChanged:" destination="9RA-1g-uit" eventType="valueChanged" id="HxG-4h-rc0"/>
-                                </connections>
-                            </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default Tip Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qq-MS-cYG">
                                 <rect key="frame" x="16" y="78" width="173" height="22"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="173" id="hru-LL-588"/>
                                 </constraints>
@@ -341,7 +352,6 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" red="0.4933164119720459" green="0.11748386174440384" blue="0.83657234907150269" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="z37-Wa-jOW" firstAttribute="top" secondItem="7qq-MS-cYG" secondAttribute="bottom" constant="8" id="021-aV-7Lq"/>
@@ -379,12 +389,11 @@
         <!--Custom Navigation View Controller-->
         <scene sceneID="dsK-lX-GUu">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YAM-Hq-1fj" customClass="CustomNavigationViewController" customModule="Tips" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YAM-Hq-1fj" customClass="CustomNavigationViewController" customModule="Tipster" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lx6-XN-ICX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -394,6 +403,118 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YmJ-9S-TFh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="722" y="526"/>
+        </scene>
+        <!--Pop Up View Controller-->
+        <scene sceneID="oTK-Ig-cgo">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" id="Pe0-Lg-HIo" customClass="PopUpViewController" customModule="Tipster" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ihz-UE-DOq"/>
+                        <viewControllerLayoutGuide type="bottom" id="f0G-LS-0Sn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="McZ-td-TLp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lsn-tp-9BA" customClass="SpringButton" customModule="Tipster" customModuleProvider="target">
+                                <rect key="frame" x="-4" y="0.0" width="328" height="568"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="fadeIn"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autohide" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="backPressed:" destination="Pe0-Lg-HIo" eventType="touchUpInside" id="NSJ-qd-mhz"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7oA-YK-ZFD" customClass="SpringView" customModule="Tipster" customModuleProvider="target">
+                                <rect key="frame" x="-4" y="343" width="328" height="300"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EAl-dj-xjA">
+                                        <rect key="frame" x="20" y="54" width="288" height="29"/>
+                                        <segments>
+                                            <segment title="18%"/>
+                                            <segment title="20%"/>
+                                            <segment title="25%"/>
+                                        </segments>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="valueChanged:" destination="9RA-1g-uit" eventType="valueChanged" id="pIO-3a-jli"/>
+                                            <action selector="valueChanged:" destination="Pe0-Lg-HIo" eventType="valueChanged" id="x2N-l9-Wm2"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default Tip Amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Isj-ic-cF8">
+                                        <rect key="frame" x="78" y="25" width="173" height="21.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="173" id="QdE-tL-exK"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Color Scheme" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tgX-1U-rAQ">
+                                        <rect key="frame" x="78" y="107" width="173" height="21.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="173" id="SWD-n6-3uV"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="v9j-io-MQy">
+                                        <rect key="frame" x="20" y="137" width="288" height="29"/>
+                                        <segments>
+                                            <segment title="Day"/>
+                                            <segment title="Night"/>
+                                        </segments>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="valueChanged:" destination="Pe0-Lg-HIo" eventType="valueChanged" id="Wlb-qO-P5h"/>
+                                            <action selector="valueChanged:" destination="9RA-1g-uit" eventType="valueChanged" id="x9F-fy-UNE"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" red="0.49876987934112549" green="0.35270094871520996" blue="0.54094803333282471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="v9j-io-MQy" firstAttribute="leading" secondItem="7oA-YK-ZFD" secondAttribute="leading" constant="20" id="3aG-tA-rzs"/>
+                                    <constraint firstAttribute="height" constant="300" id="3m2-5g-Mof"/>
+                                    <constraint firstAttribute="trailing" secondItem="v9j-io-MQy" secondAttribute="trailing" constant="20" id="5DE-fS-br9"/>
+                                    <constraint firstItem="EAl-dj-xjA" firstAttribute="leading" secondItem="7oA-YK-ZFD" secondAttribute="leading" constant="20" id="AY2-6a-00e"/>
+                                    <constraint firstItem="tgX-1U-rAQ" firstAttribute="top" secondItem="EAl-dj-xjA" secondAttribute="bottom" constant="25" id="Hl4-zt-gLc"/>
+                                    <constraint firstItem="Isj-ic-cF8" firstAttribute="centerX" secondItem="7oA-YK-ZFD" secondAttribute="centerX" id="It4-kQ-CHH"/>
+                                    <constraint firstItem="v9j-io-MQy" firstAttribute="top" secondItem="tgX-1U-rAQ" secondAttribute="bottom" constant="8" id="J5q-Wt-9ki"/>
+                                    <constraint firstItem="Isj-ic-cF8" firstAttribute="top" secondItem="7oA-YK-ZFD" secondAttribute="top" constant="25" id="VF1-cU-08g"/>
+                                    <constraint firstItem="EAl-dj-xjA" firstAttribute="top" secondItem="Isj-ic-cF8" secondAttribute="bottom" constant="8" id="cWb-j9-7Ni"/>
+                                    <constraint firstAttribute="trailing" secondItem="EAl-dj-xjA" secondAttribute="trailing" constant="20" id="qhZ-Ej-Upj"/>
+                                    <constraint firstItem="tgX-1U-rAQ" firstAttribute="centerX" secondItem="7oA-YK-ZFD" secondAttribute="centerX" id="sDN-Zo-Q81"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeUp"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="7oA-YK-ZFD" firstAttribute="leading" secondItem="McZ-td-TLp" secondAttribute="leadingMargin" constant="-20" id="8n0-Oy-yph"/>
+                            <constraint firstItem="f0G-LS-0Sn" firstAttribute="top" secondItem="Lsn-tp-9BA" secondAttribute="bottom" id="XDt-X0-ByC"/>
+                            <constraint firstItem="f0G-LS-0Sn" firstAttribute="top" secondItem="7oA-YK-ZFD" secondAttribute="bottom" constant="-75" id="Ze1-SC-nYM"/>
+                            <constraint firstItem="Lsn-tp-9BA" firstAttribute="leading" secondItem="McZ-td-TLp" secondAttribute="leadingMargin" constant="-20" id="f2g-PE-m7x"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7oA-YK-ZFD" secondAttribute="trailing" constant="-20" id="lBo-6C-gyD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Lsn-tp-9BA" secondAttribute="trailing" constant="-20" id="zKO-vE-FBd"/>
+                            <constraint firstItem="Lsn-tp-9BA" firstAttribute="top" secondItem="McZ-td-TLp" secondAttribute="topMargin" id="zsd-mI-Az8"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="1lp-7J-NpY"/>
+                    <connections>
+                        <outlet property="backButton" destination="Lsn-tp-9BA" id="OXd-sV-JTT"/>
+                        <outlet property="colorSchemeControl" destination="v9j-io-MQy" id="FWW-Cx-Fwy"/>
+                        <outlet property="popUpView" destination="7oA-YK-ZFD" id="BeV-fG-ojG"/>
+                        <outlet property="tipControl" destination="EAl-dj-xjA" id="SPu-oF-kDD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s9l-Y2-PAI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="714" y="1276"/>
         </scene>
     </scenes>
     <resources>

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2EB358C81C0D0E80009128EB"
-               BuildableName = "Tips.app"
-               BlueprintName = "Tips"
-               ReferencedContainer = "container:Tips.xcodeproj">
+               BuildableName = "Tipster.app"
+               BlueprintName = "Tipster"
+               ReferencedContainer = "container:Tipster.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2EB358C81C0D0E80009128EB"
-            BuildableName = "Tips.app"
-            BlueprintName = "Tips"
-            ReferencedContainer = "container:Tips.xcodeproj">
+            BuildableName = "Tipster.app"
+            BlueprintName = "Tipster"
+            ReferencedContainer = "container:Tipster.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2EB358C81C0D0E80009128EB"
-            BuildableName = "Tips.app"
-            BlueprintName = "Tips"
-            ReferencedContainer = "container:Tips.xcodeproj">
+            BuildableName = "Tipster.app"
+            BlueprintName = "Tipster"
+            ReferencedContainer = "container:Tipster.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2EB358C81C0D0E80009128EB"
-            BuildableName = "Tips.app"
-            BlueprintName = "Tips"
-            ReferencedContainer = "container:Tips.xcodeproj">
+            BuildableName = "Tipster.app"
+            BlueprintName = "Tipster"
+            ReferencedContainer = "container:Tipster.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

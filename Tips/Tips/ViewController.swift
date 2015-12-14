@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, ModalDelegate {
   
   // ******************************************************
   // Properties
@@ -22,12 +22,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
   @IBOutlet var scrollView: UIScrollView!
   
   // UILabel Outlets
-  @IBOutlet var tipLabel: UILabel!
-  @IBOutlet var totalLabel: UILabel!
-  @IBOutlet var TwoPeopleOutlet: UILabel!
-  @IBOutlet var ThreePeopleOutlet: UILabel!
-  @IBOutlet var FourPeopleOutlet: UILabel!
-  @IBOutlet var FivePeopleOutlet: UILabel!
+  @IBOutlet var tipLabel: SpringLabel!
+  @IBOutlet var totalLabel: SpringLabel!
+  @IBOutlet var TwoPeopleOutlet: SpringLabel!
+  @IBOutlet var ThreePeopleOutlet: SpringLabel!
+  @IBOutlet var FourPeopleOutlet: SpringLabel!
+  @IBOutlet var FivePeopleOutlet: SpringLabel!
   
   // UISegmentedControl Outlets
   @IBOutlet var tipControl: UISegmentedControl!
@@ -63,8 +63,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "settingsChanged:", name: "settingsChanged", object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "intializeBillField:", name: UIApplicationWillEnterForegroundNotification, object: nil)
+    
     // Setup the notification to be alerted when the keyboard is shown
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+    billField.keyboardType = .DecimalPad
     
     // Setup the UITextFieldDelegate
     billField.delegate = self
@@ -96,18 +100,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     ThreePeopleOutlet.font = UIFont.monospacedDigitSystemFontOfSize(ThreePeopleOutlet.font.pointSize, weight: UIFontWeightRegular)
     FourPeopleOutlet.font = UIFont.monospacedDigitSystemFontOfSize(FourPeopleOutlet.font.pointSize, weight: UIFontWeightRegular)
     FivePeopleOutlet.font = UIFont.monospacedDigitSystemFontOfSize(FivePeopleOutlet.font.pointSize, weight: UIFontWeightRegular)
-    
-    // Determine how long since the last edit, and pull in the old data if less than 10 minutes
-    let defaults = NSUserDefaults.standardUserDefaults()
-    let lastEdit: NSDate? = defaults.objectForKey("lastEdit") as! NSDate?
-    if lastEdit != nil {
-      let timeInterval: NSTimeInterval = NSDate().timeIntervalSinceDate(lastEdit!)
-      if Int(timeInterval) <= 300 {
-        billField.text = (defaults.objectForKey("billAmount") as! String)
-        self.onEditingChanged(self)
-      }
-    }
-    
   }
   
   
@@ -117,56 +109,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // Always show the keyboard first things
     billField.becomeFirstResponder()
     
-    // Pull in the settings and setup the app to reflect them
-    let defaults = NSUserDefaults.standardUserDefaults()
-    let tipIndex: Int? = defaults.integerForKey("defaultTip")
-    let colorScheme = defaults.integerForKey("colorScheme")
-    
-    if let tip = tipIndex {
-      tipControl.selectedSegmentIndex = tip
-    }
-    else {
-      tipControl.selectedSegmentIndex = 0
-    }
-    
-    // Day
-    if colorScheme == 0 {
-      blueGradientLayer.hidden = true
-      orangeGradientLayer.hidden = false
-      
-      blueGradientTopLayer.hidden = true
-      orangeGradientTopLayer.hidden = false
-      
-      self.scrollView.backgroundColor = UIColor(red:0, green:0, blue:0, alpha:0.1)
-      
-      billField.textColor = UIColor.blackColor()
-      self.setNeedsStatusBarAppearanceUpdate()
-      billField.keyboardAppearance = UIKeyboardAppearance.Light
-      
-      let str = NSAttributedString(string: "Enter Bill Amount", attributes: [NSForegroundColorAttributeName:UIColor(red:0, green:0, blue:0, alpha:0.2)])
-      billField.attributedPlaceholder = str
-      
-      settingsIcon.imageView?.image = UIImage.init(named: "darkGear")
-    }
-    // Night
-    else {
-      blueGradientLayer.hidden = false
-      orangeGradientLayer.hidden = true
-      
-      blueGradientTopLayer.hidden = false
-      orangeGradientTopLayer.hidden = true
-      
-      self.scrollView.backgroundColor = UIColor.init(white: 1.0, alpha: 0.2)
-      
-      billField.textColor = UIColor.whiteColor()
-      self.setNeedsStatusBarAppearanceUpdate()
-      billField.keyboardAppearance = UIKeyboardAppearance.Dark
-      
-      let str = NSAttributedString(string: "Enter Bill Amount", attributes: [NSForegroundColorAttributeName:UIColor.init(white: 1.0, alpha: 0.5)])
-      billField.attributedPlaceholder = str
-      
-      settingsIcon.imageView?.image = UIImage.init(named: "lightGear")
-    }
+    self.updateView()
     
     TwoPeopleOutlet.alpha = 0.75
     ThreePeopleOutlet.alpha = 0.68
@@ -197,6 +140,30 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // when dismissing the modal settings view controller
     billField.resignFirstResponder()
   }
+  
+  
+  
+  func updateView() {
+    let defaults = NSUserDefaults.standardUserDefaults()
+    let tipIndex: Int? = defaults.integerForKey("defaultTip")
+    let colorScheme = defaults.integerForKey("colorScheme")
+    
+    if let tip = tipIndex {
+      tipControl.selectedSegmentIndex = tip
+    }
+    else {
+      tipControl.selectedSegmentIndex = 0
+    }
+    
+    // Day
+    if colorScheme == 0 {
+      self.setupDayTheme()
+    }
+      // Night
+    else {
+      self.setupNightTheme()
+    }
+  }
 
   
   
@@ -220,18 +187,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
       total = billAmount + tip
     }
     
-    if (tip != 0) {
-      heightConstraint.constant = 100
-      UIView.animateWithDuration(0.4, animations: {self.view.layoutIfNeeded()})
+    if billField.text!.containsString(".") || billField.text?.characters.count == 0 {
+      billField.keyboardType = .NumberPad
     }
     else {
-      // Check to make sure there aren't multiple "." in the input
-      let stringArray = billField.text?.componentsSeparatedByString(".")
-      if (stringArray?.count <= 2) {
-        heightConstraint.constant = self.view.frame.size.height
-        UIView.animateWithDuration(0.4, animations: {self.view.layoutIfNeeded()})
-        scrollView.setContentOffset(CGPointMake(0, 0), animated: true)
+      billField.keyboardType = .DecimalPad
+    }
+    billField.reloadInputViews()
+    
+    if (tip != 0) {
+      if heightConstraint.constant != 100 {
+        heightConstraint.constant = 100
+        UIView.animateWithDuration(0.5, animations: {self.view.layoutIfNeeded()})
+        self.animateLabels()
       }
+    }
+    else {
+      heightConstraint.constant = self.view.frame.size.height
+      UIView.animateWithDuration(0.5, animations: {self.view.layoutIfNeeded()})
+      scrollView.setContentOffset(CGPointMake(0, 0), animated: true)
     }
     
     // Create a number formatter to localize the currency strings
@@ -256,19 +230,40 @@ class ViewController: UIViewController, UITextFieldDelegate {
   }
   
   
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "PopUpSegue" {
+      let popUpController = segue.destinationViewController as! PopUpViewController
+      popUpController.delegate = self
+    }
+  }
   
   // Used to call the modal segue that opens the settings view
   @IBAction func openSettings(sender: AnyObject) {
     billField.resignFirstResponder()
-    performSegueWithIdentifier("ModalSegue", sender: sender)
+    self.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+    performSegueWithIdentifier("PopUpSegue", sender: sender)
   }
-  
-  
   
   // Used to dismiss the settings screen 
   // Called by the first responder in the Settings View Controller
   @IBAction func dismissSettings(sender: AnyObject) {
     dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  func minimizeView() {
+    SpringAnimation.spring(0.7, animations: {
+      self.view.transform = CGAffineTransformMakeScale(0.935, 0.935)
+    })
+  }
+  
+  func maximizeView() {
+    SpringAnimation.spring(0.7, animations: {
+      self.view.transform = CGAffineTransformMakeScale(1.0, 1.0)
+    })
+  }
+  
+  func assignFirstResponder() {
+    billField.becomeFirstResponder()
   }
   
  
@@ -281,6 +276,119 @@ class ViewController: UIViewController, UITextFieldDelegate {
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
+  }
+  
+  
+  
+  func settingsChanged(notification: NSNotification) {
+    updateView()
+    onEditingChanged(self)
+  }
+  
+  
+  
+  func intializeBillField(notification: NSNotification) {
+    // Determine how long since the last edit, and pull in the old data if less than 10 minutes
+    let defaults = NSUserDefaults.standardUserDefaults()
+    let lastEdit: NSDate? = defaults.objectForKey("lastEdit") as! NSDate?
+    if lastEdit != nil {
+      let timeInterval: NSTimeInterval = NSDate().timeIntervalSinceDate(lastEdit!)
+      if Int(timeInterval) <= 600 {
+        billField.text = (defaults.objectForKey("billAmount") as! String)
+        self.onEditingChanged(self)
+      }
+      else {
+        billField.text = ""
+        self.onEditingChanged(self)
+      }
+    }
+  }
+  
+  
+  
+  func setupDayTheme() {
+    blueGradientLayer.hidden = true
+    orangeGradientLayer.hidden = false
+    
+    blueGradientTopLayer.hidden = true
+    orangeGradientTopLayer.hidden = false
+    
+    self.scrollView.backgroundColor = UIColor(red:0, green:0, blue:0, alpha:0.1)
+    
+    billField.textColor = UIColor(red:0, green:0, blue:0, alpha:0.5)
+    self.setNeedsStatusBarAppearanceUpdate()
+    billField.keyboardAppearance = UIKeyboardAppearance.Light
+    
+    let str = NSAttributedString(string: "Bill Amount", attributes: [NSForegroundColorAttributeName:UIColor(red:0, green:0, blue:0, alpha:0.2)])
+    billField.attributedPlaceholder = str
+    
+    settingsIcon.imageView?.image = UIImage.init(named: "darkGear")
+    
+    billField.tintColor = UIColor(red:0, green:0, blue:0, alpha:0.2)
+  }
+  
+  
+  
+  func setupNightTheme() {
+    blueGradientLayer.hidden = false
+    orangeGradientLayer.hidden = true
+    
+    blueGradientTopLayer.hidden = false
+    orangeGradientTopLayer.hidden = true
+    
+    self.scrollView.backgroundColor = UIColor.init(white: 1.0, alpha: 0.2)
+    
+    billField.textColor = UIColor.whiteColor()
+    self.setNeedsStatusBarAppearanceUpdate()
+    billField.keyboardAppearance = UIKeyboardAppearance.Dark
+    
+    let str = NSAttributedString(string: "Bill Amount", attributes: [NSForegroundColorAttributeName:UIColor.init(white: 1.0, alpha: 0.5)])
+    billField.attributedPlaceholder = str
+    
+    settingsIcon.imageView?.image = UIImage.init(named: "lightGear")
+    
+    billField.tintColor = UIColor.init(white: 1.0, alpha: 0.4)
+  }
+  
+  
+  
+  func animateLabels() {
+    tipLabel.animation = "slideLeft"
+    tipLabel.duration = 1.2
+    tipLabel.delay = 0.2
+    tipLabel.curve = "linear"
+    
+    totalLabel.animation = "slideLeft"
+    totalLabel.duration = 1.2
+    totalLabel.delay = 0.2
+    totalLabel.curve = "linear"
+    
+    TwoPeopleOutlet.animation = "slideLeft"
+    TwoPeopleOutlet.duration = 1.2
+    TwoPeopleOutlet.delay = 0.2
+    TwoPeopleOutlet.curve = "linear"
+    
+    ThreePeopleOutlet.animation = "slideLeft"
+    ThreePeopleOutlet.duration = 1.2
+    ThreePeopleOutlet.delay = 0.2
+    ThreePeopleOutlet.curve = "linear"
+    
+    FourPeopleOutlet.animation = "slideLeft"
+    FourPeopleOutlet.duration = 1.2
+    FourPeopleOutlet.delay = 0.2
+    FourPeopleOutlet.curve = "linear"
+    
+    FivePeopleOutlet.animation = "slideLeft"
+    FivePeopleOutlet.duration = 1.2
+    FivePeopleOutlet.delay = 0.2
+    FivePeopleOutlet.curve = "linear"
+    
+    tipLabel.animate()
+    totalLabel.animate()
+    TwoPeopleOutlet.animate()
+    ThreePeopleOutlet.animate()
+    FourPeopleOutlet.animate()
+    FivePeopleOutlet.animate()
   }
   
   
@@ -330,9 +438,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     returnLayer.colors = [colorOne, colorTwo]
     returnLayer.locations = [0.0, 1.0]
     
-    returnLayer.frame.size.width = self.view.frame.size.width + 10
-    returnLayer.frame.size.height = self.view.frame.size.height
-    returnLayer.frame.origin = CGPointMake(0, 0)
+    returnLayer.frame = self.view.frame
     
     return returnLayer
   }
@@ -348,9 +454,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     returnLayer.colors = [colorOne, colorTwo]
     returnLayer.locations = [0.0, 1.0]
     
-    returnLayer.frame.size.width = self.view.frame.size.width + 10
-    returnLayer.frame.size.height = self.view.frame.size.height
-    returnLayer.frame.origin = CGPointMake(0, 0)
+    returnLayer.frame = self.view.frame
     
     return returnLayer
   }
